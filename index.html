@@ -71,7 +71,7 @@
     display:flex;
     align-items:center;
     gap:10px;
-    padding:16px 16px 12px;
+    padding:calc(16px + env(safe-area-inset-top)) 16px 12px;
     background:var(--card);
     border-bottom:1px solid var(--line);
     position:sticky;
@@ -79,14 +79,14 @@
     z-index:5;
   }
   .icon-btn{
-    width:34px;height:34px;
+    width:40px;height:40px;
     border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     background:var(--bg);
     color:var(--text);
     border:none;
     cursor:pointer;
-    flex:0 0 34px;
+    flex:0 0 40px;
   }
   .top-bar h1{
     flex:1;
@@ -94,7 +94,7 @@
     font-weight:800;
     margin:0;
     text-align:center;
-    padding-right:34px;
+    padding-right:40px;
   }
   .top-bar.left-align h1{text-align:left;padding-right:0;}
 
@@ -105,7 +105,7 @@
   .hero{
     background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
     color:#fff;
-    padding:22px 20px 20px;
+    padding:calc(22px + env(safe-area-inset-top)) 20px 20px;
     border-bottom-left-radius:22px;
     border-bottom-right-radius:22px;
   }
@@ -178,7 +178,7 @@
     display:flex;
     background:var(--card);
     border-top:1px solid var(--line);
-    padding:8px 4px 10px;
+    padding:8px 4px calc(10px + env(safe-area-inset-bottom));
     position:relative;
     z-index:10;
   }
@@ -277,18 +277,27 @@
     font-weight:800;
     cursor:pointer;
   }
-  .toast{
-    margin:0 16px 16px;
-    background:var(--navy);
-    color:var(--teal-pale);
-    font-size:12px;
-    font-weight:600;
-    line-height:1.5;
-    padding:12px 14px;
+  .directions-drop{
+    margin-top:10px;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease, opacity .25s ease;
+    opacity:0;
+    background:var(--teal-pale);
     border-radius:12px;
-    display:none;
   }
-  .toast.show{display:block;}
+  .directions-drop.open{max-height:160px; opacity:1;}
+  .directions-drop-inner{
+    padding:12px 14px;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .directions-drop-inner svg{flex:0 0 18px; margin-top:1px; color:var(--teal-dark);}
+  .directions-drop-inner p{margin:0;font-size:12.5px;line-height:1.5;color:var(--teal-dark);font-weight:600;}
+  .btn-primary.is-open{background:var(--teal-dark);}
+  .btn-chev{transition:transform .25s ease; display:inline-block;}
+  .btn-chev.open{transform:rotate(180deg);}
 
   /* ===== LIST ROWS (ministry / more / contacts) ===== */
   .list-card{
@@ -464,7 +473,7 @@
     background:linear-gradient(170deg,var(--navy) 0%, #060c15 100%);
     color:#fff;
     justify-content:space-between;
-    padding:36px 26px 26px;
+    padding:calc(36px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom));
   }
   .splash-top{margin-top:10px;}
   .splash-logo{font-size:34px;font-weight:900;letter-spacing:0.01em;}
@@ -616,7 +625,7 @@
     <div class="top-bar">
       <button class="icon-btn" onclick="back()"><span id="icon-guide-back"></span></button>
       <h1>First Impressions Guide</h1>
-      <div style="width:34px"></div>
+      <div style="width:40px"></div>
     </div>
     <div class="scroll" id="guide-body"></div>
   </div>
@@ -626,7 +635,7 @@
     <div class="top-bar">
       <button class="icon-btn" onclick="back()"><span id="icon-emergency-back"></span></button>
       <h1>Emergency Procedures</h1>
-      <div style="width:34px"></div>
+      <div style="width:40px"></div>
     </div>
     <div class="scroll" id="emergency-body"></div>
   </div>
@@ -636,7 +645,7 @@
     <div class="top-bar">
       <button class="icon-btn" onclick="back()"><span id="icon-nursery-back"></span></button>
       <h1>Nursery Rooms</h1>
-      <div style="width:34px"></div>
+      <div style="width:40px"></div>
     </div>
     <div class="scroll">
       <div class="pill-toggle" id="nursery-toggle"></div>
@@ -649,7 +658,7 @@
     <div class="top-bar">
       <button class="icon-btn" onclick="back()"><span id="icon-contacts-back"></span></button>
       <h1>Important Contacts</h1>
-      <div style="width:34px"></div>
+      <div style="width:40px"></div>
     </div>
     <div class="scroll" id="contacts-body"></div>
   </div>
@@ -712,6 +721,7 @@ function ic(name){
     back:'<path d="M15 19l-7-7 7-7"/>',
     search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
     chevron:'<path d="M9 6l6 6-6 6"/>',
+    'chevron-down':'<path d="M6 9l6 6 6-6"/>',
     phone:'<path d="M6 3h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/>',
     map:'<path d="M9 20l-6 2V6l6-2 6 2 6-2v16l-6 2-6-2z"/><path d="M9 4v16M15 6v16"/>',
     home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
@@ -866,13 +876,13 @@ const upperSVG = `
   <circle class="pin" cx="945" cy="480" r="17"/><text class="pin-num" x="945" y="486">12</text>
   <polygon class="room" data-id="13" points="850,600 925,600 925,665 850,665"/>
   <circle class="pin" cx="887" cy="632" r="15"/><text class="pin-num" x="887" y="637">13</text>
-  <circle class="mk" cx="645" cy="252" style="fill:var(--orange)"/>
-  <circle class="mk" cx="400" cy="150" style="fill:var(--green)"/>
-  <circle class="mk" cx="885" cy="150" style="fill:var(--green)"/>
-  <circle class="mk" cx="900" cy="345" style="fill:var(--green)"/>
-  <circle class="mk" cx="955" cy="600" style="fill:var(--green)"/>
-  <circle class="mk" cx="335" cy="300" style="fill:var(--purple)"/>
-  <circle class="mk" cx="862" cy="590" style="fill:var(--purple)"/>
+  <circle class="mk" cx="645" cy="252" r="9" style="fill:var(--orange)"/>
+  <circle class="mk" cx="400" cy="150" r="9" style="fill:var(--green)"/>
+  <circle class="mk" cx="885" cy="150" r="9" style="fill:var(--green)"/>
+  <circle class="mk" cx="900" cy="345" r="9" style="fill:var(--green)"/>
+  <circle class="mk" cx="955" cy="600" r="9" style="fill:var(--green)"/>
+  <circle class="mk" cx="335" cy="300" r="9" style="fill:var(--purple)"/>
+  <circle class="mk" cx="862" cy="590" r="9" style="fill:var(--purple)"/>
 </svg>`;
 
 const mainSVG = `
@@ -882,7 +892,7 @@ const mainSVG = `
   <circle class="pin" cx="160" cy="145" r="16"/><text class="pin-num" x="160" y="150">14</text>
   <polygon class="room" data-id="15" points="100,225 225,225 225,305 145,305 100,275"/>
   <circle class="pin" cx="165" cy="265" r="15"/><text class="pin-num" x="165" y="270">15</text>
-  <circle class="mk" cx="260" cy="295" style="fill:var(--orange)"/>
+  <circle class="mk" cx="260" cy="295" r="9" style="fill:var(--orange)"/>
   <polygon class="room" data-id="16" points="80,305 225,305 245,425 80,425"/>
   <circle class="pin" cx="155" cy="365" r="15"/><text class="pin-num" x="155" y="370">16</text>
   <polygon class="room" data-id="17" points="265,285 365,285 365,425 265,425"/>
@@ -894,10 +904,10 @@ const mainSVG = `
   <polygon class="room" data-id="20" points="785,300 855,280 885,340 855,400 805,400"/>
   <circle class="pin" cx="830" cy="340" r="15"/><text class="pin-num" x="830" y="345">20</text>
   <polygon class="door-tab" points="740,465 780,465 760,495"/><text class="door-label" x="760" y="515">Door K</text>
-  <circle class="mk" cx="95" cy="55" style="fill:var(--green)"/>
-  <circle class="mk" cx="700" cy="330" style="fill:var(--green)"/>
-  <circle class="mk" cx="395" cy="300" style="fill:var(--purple)"/>
-  <circle class="mk" cx="625" cy="400" style="fill:var(--purple)"/>
+  <circle class="mk" cx="95" cy="55" r="9" style="fill:var(--green)"/>
+  <circle class="mk" cx="700" cy="330" r="9" style="fill:var(--green)"/>
+  <circle class="mk" cx="395" cy="300" r="9" style="fill:var(--purple)"/>
+  <circle class="mk" cx="625" cy="400" r="9" style="fill:var(--purple)"/>
 </svg>`;
 
 document.getElementById('floor-upper-wrap').innerHTML = upperSVG;
@@ -925,15 +935,28 @@ function selectRoom(id){
       <div class="rd-head"><div class="rd-num">${r.id}</div><h3>${r.name}</h3></div>
       <p class="rd-desc">${r.desc}</p>
       <div class="rd-entrance">${ic('pin')} Nearest Entrance: ${r.entrance}</div>
-      <button class="btn-primary" onclick="showDirections(${r.id})">Get Directions</button>
-      <div class="toast" id="directions-toast"></div>
+      <button class="btn-primary" id="dir-btn" onclick="showDirections(${r.id})">Get Directions <span class="btn-chev" id="dir-chev">${ic('chevron-down')}</span></button>
+      <div class="directions-drop" id="directions-drop">
+        <div class="directions-drop-inner">${ic('pin')}<p id="directions-text"></p></div>
+      </div>
     </div>`;
 }
 function showDirections(id){
   const r = roomById(id);
-  const t = document.getElementById('directions-toast');
-  t.textContent = `Enter through ${r.entrance}, then follow the hallway signage to ${r.name}.`;
-  t.classList.add('show');
+  const drop = document.getElementById('directions-drop');
+  const btn = document.getElementById('dir-btn');
+  const chev = document.getElementById('dir-chev');
+  const isOpen = drop.classList.contains('open');
+  if(isOpen){
+    drop.classList.remove('open');
+    btn.classList.remove('is-open');
+    chev.classList.remove('open');
+  } else {
+    document.getElementById('directions-text').textContent = `Enter through ${r.entrance}, then follow the hallway signage to ${r.name}.`;
+    drop.classList.add('open');
+    btn.classList.add('is-open');
+    chev.classList.add('open');
+  }
 }
 document.addEventListener('click', e=>{
   const el = e.target.closest('.room,.room-sub');
@@ -1009,9 +1032,24 @@ function openMinistry(day, idx){
     <div class="detail-body">
       <div class="detail-block"><h5>What to Expect</h5><p>${m.desc}</p></div>
       ${m.how?`<div class="detail-block"><h5>How to Get There</h5><p>${m.how}</p></div>`:''}
-      <button class="btn-primary" onclick="alert('Enter through ${m.entrance||'the main lobby'} and follow signage to ${m.loc}.')">Get Directions</button>
+      <button class="btn-primary" id="md-dir-btn" onclick="toggleMdDirections('${m.entrance||''}','${m.loc}')">Get Directions <span class="btn-chev" id="md-dir-chev">${ic('chevron-down')}</span></button>
+      <div class="directions-drop" id="md-directions-drop">
+        <div class="directions-drop-inner">${ic('pin')}<p id="md-directions-text"></p></div>
+      </div>
     </div>`;
   go('mdetail');
+}
+function toggleMdDirections(entrance, loc){
+  const drop = document.getElementById('md-directions-drop');
+  const btn = document.getElementById('md-dir-btn');
+  const chev = document.getElementById('md-dir-chev');
+  const isOpen = drop.classList.contains('open');
+  if(isOpen){
+    drop.classList.remove('open'); btn.classList.remove('is-open'); chev.classList.remove('open');
+  } else {
+    document.getElementById('md-directions-text').textContent = `Enter through ${entrance || 'the main lobby'} and follow signage to ${loc}.`;
+    drop.classList.add('open'); btn.classList.add('is-open'); chev.classList.add('open');
+  }
 }
 buildMinistryToggle();
 renderMinistryList();
