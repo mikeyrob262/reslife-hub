@@ -110,6 +110,7 @@
     border-bottom-right-radius:22px;
   }
   .hero-top{display:flex;justify-content:space-between;align-items:center;}
+  .hero-logo-mark{width:32px;height:32px;flex:0 0 32px;}
   .wordmark{font-size:20px;font-weight:900;letter-spacing:0.01em;}
   .wordmark span{color:var(--teal);}
   .hub-sub{font-size:10px;letter-spacing:0.18em;color:#93a4b8;font-weight:700;margin-top:2px;}
@@ -476,6 +477,7 @@
     padding:calc(36px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom));
   }
   .splash-top{margin-top:10px;}
+  .splash-logo-mark{width:60px;height:60px;display:block;margin-bottom:16px;}
   .splash-logo{font-size:34px;font-weight:900;letter-spacing:0.01em;}
   .splash-logo span{color:var(--teal);}
   .splash-tag{font-size:11px;letter-spacing:0.22em;color:#8fa3b8;font-weight:700;margin-top:4px;}
@@ -516,6 +518,7 @@
   <!-- SPLASH -->
   <div class="screen active" id="screen-splash">
     <div class="splash-top">
+      <img src="logo-white.png" class="splash-logo-mark" alt="ResLife">
       <div class="splash-logo">RES<span>LIFE</span></div>
       <div class="splash-tag">FIRST IMPRESSIONS HUB</div>
       <div class="splash-verse">Everyone Encountered.<br>Everyone Embraced.</div>
@@ -539,9 +542,12 @@
     <div class="scroll">
       <div class="hero">
         <div class="hero-top">
-          <div>
-            <div class="wordmark">RES<span>LIFE</span></div>
-            <div class="hub-sub">FIRST IMPRESSIONS HUB</div>
+          <div style="display:flex;align-items:center;gap:11px;">
+            <img src="logo-white.png" class="hero-logo-mark" alt="ResLife">
+            <div>
+              <div class="wordmark">RES<span>LIFE</span></div>
+              <div class="hub-sub">FIRST IMPRESSIONS HUB</div>
+            </div>
           </div>
           <div class="bell">🔔</div>
         </div>
