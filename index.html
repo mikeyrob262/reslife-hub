@@ -6,9 +6,9 @@
 <title>ResLife First Impressions Hub</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ResLife Hub">
-<meta name="theme-color" content="#0b1626">
+<meta name="theme-color" content="#eafaf6">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <link rel="manifest" href="manifest.json">
@@ -103,25 +103,27 @@
   /* ===== HOME ===== */
   #screen-home .scroll{background:var(--bg);}
   .hero{
-    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
-    color:#fff;
+    background:linear-gradient(160deg,#eafaf6 0%,#dcf1ec 100%);
+    color:var(--text);
     padding:calc(22px + env(safe-area-inset-top)) 20px 20px;
     border-bottom-left-radius:22px;
     border-bottom-right-radius:22px;
+    border-bottom:1px solid #cfe9e2;
   }
   .hero-top{display:flex;justify-content:space-between;align-items:center;}
   .wordmark{font-size:20px;font-weight:900;letter-spacing:0.01em;}
   .wordmark span{color:var(--teal);}
-  .hub-sub{font-size:10px;letter-spacing:0.18em;color:#93a4b8;font-weight:700;margin-top:2px;}
+  .hub-sub{font-size:10px;letter-spacing:0.18em;color:var(--teal-dark);font-weight:700;margin-top:2px;}
   .bell{
     width:34px;height:34px;border-radius:50%;
-    background:rgba(255,255,255,0.08);
+    background:#fff;
     display:flex;align-items:center;justify-content:center;
-    color:#cfe0d9;
+    color:var(--teal-dark);
+    border:1px solid #d7ece6;
   }
   .greeting{margin-top:18px;}
-  .greeting h2{margin:0;font-size:19px;font-weight:800;}
-  .greeting p{margin:5px 0 0;font-size:12.5px;color:#a9b8c8;line-height:1.4;}
+  .greeting h2{margin:0;font-size:19px;font-weight:800;color:var(--navy);}
+  .greeting p{margin:5px 0 0;font-size:12.5px;color:var(--teal-dark);line-height:1.4;}
 
   .tiles{
     display:grid;
@@ -470,22 +472,23 @@
 
   /* ===== SPLASH ===== */
   #screen-splash{
-    background:linear-gradient(170deg,var(--navy) 0%, #060c15 100%);
-    color:#fff;
+    background:linear-gradient(170deg,#eafaf6 0%, #dcf1ec 100%);
+    color:var(--text);
     justify-content:space-between;
     padding:calc(36px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom));
   }
   .splash-top{margin-top:10px;}
   .splash-logo{font-size:34px;font-weight:900;letter-spacing:0.01em;}
   .splash-logo span{color:var(--teal);}
-  .splash-tag{font-size:11px;letter-spacing:0.22em;color:#8fa3b8;font-weight:700;margin-top:4px;}
+  .splash-tag{font-size:11px;letter-spacing:0.22em;color:var(--teal-dark);font-weight:700;margin-top:4px;}
   .logo-mark-lg{
     width:72px;height:72px;
     border-radius:18px;
     background:#fff;
     padding:8px;
     display:block;
-    box-shadow:0 8px 20px rgba(0,0,0,0.35);
+    border:1px solid #d7ece6;
+    box-shadow:0 6px 16px rgba(15,122,110,0.14);
   }
   .logo-mark-sm{
     width:44px;height:44px;
@@ -494,36 +497,38 @@
     padding:5px;
     display:block;
     flex:0 0 44px;
+    border:1px solid #d7ece6;
   }
   .hero-brand{display:flex;align-items:center;gap:12px;}
   .splash-verse{
     margin-top:26px;
     font-size:19px;
     font-style:italic;
-    color:#cfe3dc;
+    color:var(--navy);
     line-height:1.45;
-    font-weight:600;
+    font-weight:700;
   }
   .splash-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;margin:20px 0;}
-  .splash-feat{display:flex;align-items:center;gap:12px;color:#d7e2ec;font-size:13px;font-weight:600;}
-  .splash-feat svg{color:var(--teal);flex:0 0 20px;}
+  .splash-feat{display:flex;align-items:center;gap:12px;color:var(--text);font-size:13px;font-weight:600;}
+  .splash-feat svg{color:var(--teal-dark);flex:0 0 20px;}
   .splash-mission{
     background:linear-gradient(135deg,var(--teal-dark),var(--teal));
     border-radius:16px;padding:16px;text-align:center;margin-bottom:8px;
   }
-  .splash-mission .m-title{font-size:11px;font-weight:800;letter-spacing:0.12em;opacity:0.85;margin-bottom:4px;}
-  .splash-mission .m-body{font-size:13.5px;font-weight:800;line-height:1.4;}
+  .splash-mission .m-title{font-size:11px;font-weight:800;letter-spacing:0.12em;opacity:0.85;margin-bottom:4px;color:#fff;}
+  .splash-mission .m-body{font-size:13.5px;font-weight:800;line-height:1.4;color:#fff;}
   .splash-btn{
     margin-top:14px;
     width:100%;
-    background:#fff;
-    color:var(--navy);
+    background:var(--teal-dark);
+    color:#fff;
     border:none;
     padding:15px;
     border-radius:14px;
     font-size:14px;
     font-weight:800;
     cursor:pointer;
+    box-shadow:0 6px 16px rgba(15,122,110,0.25);
   }
 </style>
 </head>
