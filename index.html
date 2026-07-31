@@ -677,6 +677,7 @@
       <div class="map-wrap">
         <div id="floor-upper-wrap"></div>
         <div id="floor-main-wrap" style="display:none"></div>
+        <a id="open-full-map" href="map-mainlevel.html" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--teal-dark);text-decoration:none;">Open this map as its own page <span id="icon-open-map"></span></a>
       </div>
       <div class="legend-list" id="activity-legend"></div>
       <div class="legend-list" id="category-legend" style="padding-top:0;"></div>
@@ -848,7 +849,7 @@ document.getElementById('logo-home').src = LOGO_SRC;
 const staticIcons = {
   'icon-sf1':'search','icon-sf2':'people','icon-sf3':'smile',
   'icon-contact-phone':'phone','icon-contact-chev':'chevron',
-  'icon-map-back':'back','icon-map-search':'search',
+  'icon-map-back':'back','icon-map-search':'search','icon-open-map':'external',
   'icon-ministry-back':'back','icon-ministry-search':'search',
   'icon-mdetail-back':'back',
   'icon-guide-back':'back','icon-emergency-back':'back',
@@ -996,6 +997,8 @@ function setFloor(f){
   selectRoom(firstRoom.id);
   const hashFloor = f==='upper' ? 'map-mainlevel' : 'map-level1';
   try{ history.replaceState(history.state, '', '#'+hashFloor); }catch(e){}
+  const openLink = document.getElementById('open-full-map');
+  if(openLink) openLink.href = f==='upper' ? 'map-mainlevel.html' : 'map-level1.html';
 }
 function selectRoom(id){
   selectedRoom=id;
