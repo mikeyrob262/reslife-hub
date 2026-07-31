@@ -863,6 +863,7 @@ Object.entries(staticIcons).forEach(([id,name])=>{
 /* ---------- NAV STACK ---------- */
 let stack = ['splash'];
 const rootTabs = ['home','map','search','chat','more'];
+const validScreens = ['home','map','search','chat','more','guide','emergency','nursery','ministry','contacts'];
 
 function render(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -872,9 +873,12 @@ function render(){
     const nav = document.getElementById('nav-'+t);
     if(nav) nav.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===top));
   });
+  if(top!=='splash'){
+    try{ history.replaceState(history.state, '', '#'+top); }catch(e){}
+  }
 }
 function pushHistory(){
-  try{ history.pushState({stack:[...stack]}, '', ''); }catch(e){}
+  try{ history.pushState({stack:[...stack]}, '', '#'+stack[stack.length-1]); }catch(e){}
 }
 function go(screen){ stack.push(screen); pushHistory(); render(); window.scrollTo(0,0); }
 function goHome(){ stack=['home']; pushHistory(); render(); }
@@ -892,7 +896,16 @@ window.addEventListener('popstate', (e)=>{
   }
   render();
 });
-history.replaceState({stack:[...stack]}, '', '');
+
+/* Deep link: if the page was opened with a #screen hash (e.g. index.html#map),
+   skip the splash screen and jump straight there. */
+(function(){
+  const initial = (location.hash||'').replace('#','');
+  if(initial && validScreens.includes(initial)){
+    stack = initial==='home' ? ['home'] : ['home', initial];
+  }
+  history.replaceState({stack:[...stack]}, '', stack.length ? '#'+stack[stack.length-1] : '');
+})();
 
 /* ---------- BOTTOM NAV BUILD ---------- */
 const navItems = [
