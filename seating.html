@@ -36,6 +36,11 @@
     align-items:center;
     gap:6px;
   }
+  .back-bar a svg{
+    width:18px;
+    height:18px;
+    flex-shrink:0;
+  }
   header{
     position:sticky;
     top:0;
@@ -175,7 +180,7 @@
 <body>
 
 <div class="back-bar">
-  <a href="index.html">&larr; Back to First Impressions Hub</a>
+  <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg> Back to First Impressions Hub</a>
 </div>
 
 <header>
@@ -218,6 +223,7 @@ function show(which){
   document.getElementById('tab-balcony').classList.toggle('active', which==='balcony');
   document.getElementById('wrap-main').classList.toggle('active', which==='main');
   document.getElementById('wrap-balcony').classList.toggle('active', which==='balcony');
+  try{ history.replaceState(null, '', '#'+which); }catch(e){}
 }
 function markLoaded(which){
   document.getElementById('wrap-'+which).classList.add('img-loaded');
@@ -226,6 +232,11 @@ function markLoaded(which){
 function markError(which){
   document.getElementById('wrap-'+which).classList.add('img-error');
 }
+/* Deep link: seating.html#balcony or seating.html#main opens directly to that chart. */
+(function(){
+  const initial = (location.hash||'').replace('#','');
+  if(initial==='balcony' || initial==='main'){ show(initial); }
+})();
 </script>
 
 </body>

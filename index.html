@@ -861,6 +861,7 @@ Object.entries(staticIcons).forEach(([id,name])=>{
 });
 
 /* ---------- NAV STACK ---------- */
+const initialHash = (location.hash||'').replace('#','');
 let stack = ['splash'];
 const rootTabs = ['home','map','search','chat','more'];
 const validScreens = ['home','map','search','chat','more','guide','emergency','contacts'];
@@ -900,9 +901,10 @@ window.addEventListener('popstate', (e)=>{
 /* Deep link: if the page was opened with a #screen hash (e.g. index.html#map),
    skip the splash screen and jump straight there. */
 (function(){
-  const initial = (location.hash||'').replace('#','');
-  if(initial && validScreens.includes(initial)){
-    stack = initial==='home' ? ['home'] : ['home', initial];
+  const initial = initialHash;
+  const screenFor = (initial==='map-mainlevel'||initial==='map-level1') ? 'map' : initial;
+  if(screenFor && validScreens.includes(screenFor)){
+    stack = screenFor==='home' ? ['home'] : ['home', screenFor];
   }
   history.replaceState({stack:[...stack]}, '', stack.length ? '#'+stack[stack.length-1] : '');
 })();
@@ -988,6 +990,8 @@ function setFloor(f){
   buildFloorLegend(f);
   const firstRoom = rooms.find(r=>r.floor===f);
   selectRoom(firstRoom.id);
+  const hashFloor = f==='upper' ? 'map-mainlevel' : 'map-level1';
+  try{ history.replaceState(history.state, '', '#'+hashFloor); }catch(e){}
 }
 function selectRoom(id){
   selectedRoom=id;
@@ -1371,6 +1375,12 @@ function sendChat(){
 }
 
 render();
+
+/* Deep link: #map-mainlevel or #map-level1 opens the map on that specific floor. */
+(function(){
+  if(initialHash==='map-mainlevel'){ setFloor('upper'); }
+  else if(initialHash==='map-level1'){ setFloor('main'); }
+})();
 </script>
 </body>
 </html>
