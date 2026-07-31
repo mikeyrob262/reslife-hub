@@ -28,6 +28,7 @@
     --purple:#7c5cbf; --purple-bg:#efe9fb;
     --orange:#f0a323; --orange-bg:#fef2df;
     --red:#e35660; --red-bg:#fdeaec;
+    --cyan:#3fb8c4; --cyan-bg:#e3f6f8;
     --blue:#4a90d9; --blue-bg:#e8f2fc;
     --pink:#ef6c9b; --pink-bg:#fdeaf1;
     --shadow:0 6px 18px rgba(15,30,45,0.08);
@@ -165,15 +166,15 @@
 
   .mission-banner{
     margin:4px 16px 18px;
-    background:var(--teal-dark);
-    background:linear-gradient(135deg,var(--teal-dark),var(--teal));
-    color:#fff;
-    border-radius:16px;
-    padding:16px;
-    text-align:center;
+    background:var(--teal-pale);
+    border-left:4px solid var(--teal);
+    color:var(--navy);
+    border-radius:10px;
+    padding:14px 16px;
+    text-align:left;
   }
-  .mission-banner .m-title{font-size:11px;font-weight:800;letter-spacing:0.12em;opacity:0.85;margin-bottom:4px;}
-  .mission-banner .m-body{font-size:13.5px;font-weight:800;line-height:1.4;}
+  .mission-banner .m-title{font-size:10px;letter-spacing:0.14em;opacity:0.7;margin-bottom:4px;color:var(--teal-dark);}
+  .mission-banner .m-body{font-size:13px;font-weight:700;line-height:1.45;font-style:italic;}
 
   /* ===== BOTTOM NAV ===== */
   .bottom-nav{
@@ -241,17 +242,53 @@
   /* ===== MAP ===== */
   .map-wrap{padding:12px 16px 4px;}
   .floorplan{width:100%;height:auto;display:block;}
+  .map-img-wrap{position:relative;width:100%;line-height:0;}
+  .map-img{width:100%;height:auto;display:block;border-radius:10px;}
+  .img-pin{
+    position:absolute;
+    width:26px;height:26px;
+    border-radius:50%;
+    border:2px solid #fff;
+    color:#fff;font-size:12px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%);
+    box-shadow:0 2px 6px rgba(0,0,0,0.35);
+    cursor:pointer;
+    padding:0;
+  }
+  .img-pin.selected{
+    width:34px;height:34px;
+    box-shadow:0 0 0 4px rgba(22,163,148,0.45), 0 2px 8px rgba(0,0,0,0.4);
+  }
   .room{fill:#e4e8ec;stroke:#c3cbd3;stroke-width:3;stroke-linejoin:round;cursor:pointer;transition:fill .15s;}
   .room-sub{fill:#d7dde1;stroke:#c3cbd3;stroke-width:2.5;cursor:pointer;}
-  .room.selected,.room-sub.selected{fill:var(--teal-pale);stroke:var(--teal);}
+  .room.selected,.room-sub.selected{fill:var(--teal-pale) !important;stroke:var(--teal) !important;stroke-width:4.5 !important;}
   .corridor{fill:none;stroke:#d3d8dd;stroke-width:14;stroke-linecap:round;}
   .pin{fill:var(--teal);stroke:#fff;stroke-width:2;pointer-events:none;}
   .pin-num{fill:#fff;font-size:15px;font-weight:800;text-anchor:middle;font-family:inherit;pointer-events:none;}
   .door-tab{fill:var(--navy);}
   .door-label{fill:var(--navy);font-size:14px;font-weight:800;text-anchor:middle;font-family:inherit;}
   .mk{r:8;stroke:#fff;stroke-width:2;}
+  .cat-breakout{fill:#f7dcb0 !important;}
+  .cat-apparel{fill:#cdeedb !important;}
+  .cat-coffee{fill:#e5d9f2 !important;}
+  .cat-coffee.selected, .cat-coffee:hover{fill:var(--teal-pale) !important;}
+  .cat-breakout.selected, .cat-breakout:hover{fill:var(--teal-pale) !important;}
+  .cat-apparel.selected, .cat-apparel:hover{fill:var(--teal-pale) !important;}
+  .cat-meals{fill:#c7ecf0 !important;}
+  .cat-meals.selected, .cat-meals:hover{fill:var(--teal-pale) !important;}
+  .legend-num{
+    width:20px;height:20px;border-radius:50%;
+    background:var(--teal-dark);color:#fff;
+    font-size:11px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 20px;
+  }
 
   .legend-list{padding:2px 16px 10px;display:flex;flex-direction:column;gap:7px;}
+  .legend-list .row{padding:6px 8px;border-radius:9px;transition:background .15s,color .15s;}
+  .legend-list .row:hover{background:var(--teal-pale);color:var(--teal-dark);}
+  .legend-list .row.active{background:var(--teal-pale);color:var(--teal-dark);font-weight:800;}
   .legend-list .row{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted);font-weight:600;}
   .legend-dot{width:11px;height:11px;border-radius:50%;flex:0 0 11px;}
 
@@ -279,6 +316,18 @@
     font-weight:800;
     cursor:pointer;
   }
+  .btn-secondary{
+    width:100%;
+    background:var(--pink-bg);
+    color:#c2447a;
+    border:none;
+    padding:13px;
+    border-radius:12px;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .btn-secondary.is-open{background:#f7c9dc;}
   .directions-drop{
     margin-top:10px;
     max-height:0;
@@ -358,6 +407,34 @@
   .info-card ul{margin:0;padding-left:0;list-style:none;}
   .info-card li{font-size:12.5px;line-height:1.5;padding:4px 0 4px 16px;position:relative;color:var(--text);}
   .info-card li::before{content:"•";position:absolute;left:0;color:var(--teal);font-weight:900;}
+  .check-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;cursor:pointer;}
+  .check-box{
+    width:19px;height:19px;
+    border:2px solid var(--teal);
+    border-radius:6px;
+    flex:0 0 19px;
+    margin-top:1px;
+    position:relative;
+    transition:background .15s ease;
+  }
+  .check-box.checked{background:var(--teal);}
+  .check-box.checked::after{
+    content:"";
+    position:absolute;left:5px;top:1px;
+    width:6px;height:10px;
+    border:solid white;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .check-label{font-size:12.5px;line-height:1.5;color:var(--text);transition:color .15s ease;}
+  .check-row.checked .check-label{color:var(--muted);text-decoration:line-through;}
+  .reset-checks-btn{
+    background:none;border:none;
+    color:var(--teal-dark);
+    font-size:12px;font-weight:700;
+    text-decoration:underline;
+    cursor:pointer;
+  }
 
   .alert-card{
     margin:14px 16px 10px;
@@ -477,18 +554,14 @@
     justify-content:space-between;
     padding:calc(36px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom));
   }
-  .splash-top{margin-top:10px;}
+  .splash-top{margin-top:10px;text-align:center;}
   .splash-logo{font-size:34px;font-weight:900;letter-spacing:0.01em;}
   .splash-logo span{color:var(--teal);}
   .splash-tag{font-size:11px;letter-spacing:0.22em;color:var(--teal-dark);font-weight:700;margin-top:4px;}
   .logo-mark-lg{
-    width:72px;height:72px;
-    border-radius:18px;
-    background:#fff;
-    padding:8px;
+    width:130px;height:130px;
     display:block;
-    border:1px solid #d7ece6;
-    box-shadow:0 6px 16px rgba(15,122,110,0.14);
+    margin:0 auto;
   }
   .logo-mark-sm{
     width:44px;height:44px;
@@ -585,11 +658,6 @@
         </div>
         <div class="chev" id="icon-contact-chev"></div>
       </div>
-
-      <div class="mission-banner">
-        <div class="m-title">MISSION</div>
-        <div class="m-body">EVERYONE ENCOUNTERED.<br>EVERYONE EMBRACED.</div>
-      </div>
     </div>
     <div class="bottom-nav" id="nav-home"></div>
   </div>
@@ -597,24 +665,21 @@
   <!-- MAP -->
   <div class="screen" id="screen-map">
     <div class="top-bar">
-      <button class="icon-btn" onclick="goHome()"><span id="icon-map-back"></span></button>
+      <button class="icon-btn" onclick="back()"><span id="icon-map-back"></span></button>
       <h1>Campus Map</h1>
       <button class="icon-btn" onclick="go('search')"><span id="icon-map-search"></span></button>
     </div>
     <div class="scroll">
       <div class="underline-tabs">
-        <button class="floor-btn active" data-floor="upper" onclick="setFloor('upper')">Upper Floor</button>
-        <button class="floor-btn" data-floor="main" onclick="setFloor('main')">Main Floor</button>
+        <button class="floor-btn active" data-floor="upper" onclick="setFloor('upper')">Main Level</button>
+        <button class="floor-btn" data-floor="main" onclick="setFloor('main')">Level 1</button>
       </div>
       <div class="map-wrap">
         <div id="floor-upper-wrap"></div>
         <div id="floor-main-wrap" style="display:none"></div>
       </div>
-      <div class="legend-list">
-        <div class="row"><span class="legend-dot" style="background:var(--orange)"></span>Coffee Kiosk</div>
-        <div class="row"><span class="legend-dot" style="background:var(--green)"></span>Restrooms</div>
-        <div class="row"><span class="legend-dot" style="background:var(--purple)"></span>Nursing Mothers Room</div>
-      </div>
+      <div class="legend-list" id="activity-legend"></div>
+      <div class="legend-list" id="category-legend" style="padding-top:0;"></div>
       <div id="room-detail-slot"></div>
     </div>
     <div class="bottom-nav" id="nav-map"></div>
@@ -623,7 +688,7 @@
   <!-- MINISTRY -->
   <div class="screen" id="screen-ministry">
     <div class="top-bar">
-      <button class="icon-btn" onclick="goHome()"><span id="icon-ministry-back"></span></button>
+      <button class="icon-btn" onclick="back()"><span id="icon-ministry-back"></span></button>
       <h1>Where Does This Ministry Meet?</h1>
       <button class="icon-btn" onclick="go('search')"><span id="icon-ministry-search"></span></button>
     </div>
@@ -746,6 +811,7 @@ function ic(name){
     search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
     chevron:'<path d="M9 6l6 6-6 6"/>',
     'chevron-down':'<path d="M6 9l6 6 6-6"/>',
+    external:'<path d="M14 4h6v6"/><path d="M20 4L10 14"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>',
     phone:'<path d="M6 3h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/>',
     map:'<path d="M9 20l-6 2V6l6-2 6 2 6-2v16l-6 2-6-2z"/><path d="M9 4v16M15 6v16"/>',
     home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
@@ -774,7 +840,7 @@ function badgeIcon(name,color,bg,size){
   return `<div class="badge" style="background:${bg};color:${color};width:${size}px;height:${size}px;">${ic(name)}</div>`;
 }
 
-const LOGO_SRC = "data:image/png;base64,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";
+const LOGO_SRC = "data:image/png;base64,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V+l5fEKc2s5QW1O7oq6+rmqcL/+T7pPRXGOMJ2aejObaPT4g2Ylwz9h+s497+DDxBzdMBQUFXXV1dVV2j8NJ+s2+nIuLL/lw3rx521UJvFTvvPPOlUIIwc8Wqus3+3JmX/mVv9g9DqdyJRLM3mPkqfY8PiHUHBNwPrxvh4c5PwBwKIJv+Kj8AADaofIDAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBoh/ADAGiH8AMAaIfwAwBo5/8DsUYu5uqLHvcAAAAASUVORK5CYII=";
 document.getElementById('logo-splash').src = LOGO_SRC;
 document.getElementById('logo-home').src = LOGO_SRC;
 
@@ -807,10 +873,26 @@ function render(){
     if(nav) nav.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===top));
   });
 }
-function go(screen){ stack.push(screen); render(); window.scrollTo(0,0); }
-function goHome(){ stack=['home']; render(); }
-function back(){ if(stack.length>1) stack.pop(); render(); }
-function tab(screen){ stack=[screen]; render(); }
+function pushHistory(){
+  try{ history.pushState({stack:[...stack]}, '', ''); }catch(e){}
+}
+function go(screen){ stack.push(screen); pushHistory(); render(); window.scrollTo(0,0); }
+function goHome(){ stack=['home']; pushHistory(); render(); }
+function back(){
+  if(stack.length>1){ history.back(); }
+  else { tab('home'); }
+}
+function tab(screen){ stack=[screen]; pushHistory(); render(); }
+
+window.addEventListener('popstate', (e)=>{
+  if(e.state && e.state.stack && e.state.stack.length){
+    stack = e.state.stack;
+  } else {
+    stack = ['home'];
+  }
+  render();
+});
+history.replaceState({stack:[...stack]}, '', '');
 
 /* ---------- BOTTOM NAV BUILD ---------- */
 const navItems = [
@@ -831,12 +913,13 @@ const tiles = [
   {icon:'map', color:'var(--green)', bg:'var(--green-bg)', title:'Campus Map', sub:'Explore the campus', go:'map'},
   {icon:'people', color:'var(--purple)', bg:'var(--purple-bg)', title:'Where Does This Ministry Meet?', sub:'Find rooms & locations', go:'ministry'},
   {icon:'heart', color:'var(--orange)', bg:'var(--orange-bg)', title:'First Impressions Guide', sub:'Best practices & steps', go:'guide'},
-  {icon:'baby', color:'var(--red)', bg:'var(--red-bg)', title:'Nursery Rooms', sub:'Find age & room', go:'nursery'},
   {icon:'warn', color:'var(--red)', bg:'var(--red-bg)', title:'Emergency Procedures', sub:'Important info', go:'emergency'},
-  {icon:'question', color:'var(--blue)', bg:'var(--blue-bg)', title:'Quick Answers', sub:'Common questions', go:'search'}
+  {icon:'question', color:'var(--blue)', bg:'var(--blue-bg)', title:'Quick Answers', sub:'Common questions', go:'search'},
+  {icon:'external', color:'var(--teal-dark)', bg:'var(--teal-pale)', title:'ResLife Classes', sub:'Sign up for a class', external:'https://reslife.org/class/'},
+  {icon:'external', color:'var(--purple)', bg:'var(--purple-bg)', title:'ResLife Website', sub:'Ministries & more', external:'https://reslife.org/ministries/'}
 ];
 document.getElementById('home-tiles').innerHTML = tiles.map(t=>`
-  <div class="tile" onclick="go('${t.go}')">
+  <div class="tile" onclick="${t.external?`window.open('${t.external}','_blank')`:`go('${t.go}')`}">
     ${badgeIcon(t.icon,t.color,t.bg)}
     <h3>${t.title}</h3>
     <p>${t.sub}</p>
@@ -844,102 +927,42 @@ document.getElementById('home-tiles').innerHTML = tiles.map(t=>`
 
 /* ---------- ROOM DATA ---------- */
 const rooms = [
-  {id:1, name:'Res Center', floor:'upper', desc:'Resource center with information and materials for guests and volunteers.', entrance:'Door G'},
-  {id:2, name:'Classroom 115', floor:'upper', desc:'Classroom space used for groups and studies.', entrance:'Door H'},
-  {id:3, name:'Classroom 322', floor:'upper', desc:'Classroom space used for groups and studies.', entrance:'Door E'},
-  {id:4, name:'Gym', floor:'upper', desc:'Multi-purpose gym used for activities and events.', entrance:'Door H'},
-  {id:5, name:'ResKids Area', floor:'upper', desc:'Kids ministry check-in and classrooms.', entrance:'Door H'},
-  {id:6, name:'180', floor:'upper', desc:'Young adults gathering space.', entrance:'Door C'},
-  {id:7, name:'Garage', floor:'upper', desc:'Vehicle and equipment storage.', entrance:'Door C'},
-  {id:8, name:'Ground Floor', floor:'upper', desc:'Main lobby and gathering space for Ground Floor services.', entrance:'Door C'},
-  {id:9, name:'Zone', floor:'upper', desc:'Student ministry gathering space (3rd–5th grade).', entrance:'Door C'},
-  {id:10, name:'Nursery Area (Upper)', floor:'upper', desc:'Nursery care for upper-level services.', entrance:'Door C'},
-  {id:11, name:'Olive Tree', floor:'upper', desc:'Meeting space for benevolence and deacons.', entrance:'Door J'},
-  {id:12, name:'Worship Center (Upper)', floor:'upper', desc:'Main worship center for upper-level services.', entrance:'Door J'},
-  {id:13, name:'Hospitality Suite', floor:'upper', desc:'Guest hospitality and team snack area.', entrance:'Door J'},
-  {id:14, name:'Nursery Area (Lower)', floor:'main', desc:'Nursery care for lower-level services.', entrance:'Door N'},
-  {id:15, name:'Next Steps Area', floor:'main', desc:'Next Steps coaching for new guests.', entrance:'Door N'},
-  {id:16, name:'Community Room', floor:'main', desc:'Free coffee and community gathering space.', entrance:'Door N'},
-  {id:17, name:'Resource Center', floor:'main', desc:'Resources and an information desk.', entrance:'Door N'},
-  {id:18, name:'Worship Center (Lower)', floor:'main', desc:'Main worship center for lower-level services.', entrance:'Door N'},
-  {id:19, name:'Chapel', floor:'main', desc:'Chapel space used for prayer and Growth Track.', entrance:'Door K'},
-  {id:20, name:'Choir Room', floor:'main', desc:'Choir rehearsal and robing room.', entrance:'Door K'}
+  {id:1, num:1, name:'Worship Center: Main Level', floor:'upper', desc:'Main sanctuary and general seating on the Main Level.', entrance:'Main Entrance (Door K)', color:'var(--orange)', x:78.7, y:51.9},
+  {id:2, num:2, name:'Chapel', floor:'upper', desc:'Smaller worship space used for chapel services and events.', entrance:'Door L', color:'var(--green)', x:82.7, y:73.5},
+  {id:3, num:3, name:'Welcome Area', floor:'upper', desc:'First stop for guests near the Main Entrance — welcome desk and Guest Services.', entrance:'Main Entrance (Door K)', color:'var(--red)', x:81.6, y:84.8},
+  {id:4, num:4, name:'Word Shop Bookstore', floor:'upper', desc:'Church bookstore — Bibles, books, and gifts.', entrance:'Door M', color:'var(--blue)', x:56.0, y:73.3},
+  {id:5, num:5, name:"Noah's Ark Nursery/Preschool", floor:'upper', desc:'Nursery & preschool care, 6 weeks – 5 years.', entrance:'52nd St entrance (Door K)', color:'var(--orange)', x:48.3, y:48.0},
+  {id:6, num:6, name:'Atrium', floor:'upper', desc:'Atrium lobby connecting to the Ivanrest Ave entrance.', entrance:'Atrium Entrance (Door N)', color:'var(--purple)', x:51.5, y:27.5},
+  {id:7, num:1, name:'RezKidz Center (Kindergarten – 4th grade)', floor:'main', desc:'Kids ministry check-in and classrooms for Kindergarten through 4th grade.', entrance:'Door C', color:'var(--green)', x:17.9, y:52.6},
+  {id:8, num:2, name:'Gym', floor:'main', desc:'Gym space — hosts Servicio Hispano at 11:30 a.m. (RezCenter / Iglesia Vida).', entrance:'Door B', color:'var(--cyan)', x:35.4, y:55.5},
+  {id:9, num:3, name:'Oneighty (7th & 8th grade)', floor:'main', desc:'Student ministry space for 7th & 8th grade (Married Life).', entrance:'Door D', color:'var(--pink)', x:41.3, y:41.2},
+  {id:10, num:4, name:'The Ground Floor (9th – 12th grade)', floor:'main', desc:'High school ministry space.', entrance:'Door E', color:'var(--muted)', x:54.1, y:41.2},
+  {id:11, num:5, name:'The Zone (5th & 6th grade)', floor:'main', desc:'Kids ministry space for 5th & 6th grade.', entrance:'Door F', color:'var(--red)', x:62.8, y:31.9},
+  {id:12, num:6, name:'Worship Center: Balcony Seating', floor:'main', desc:'Balcony seating overlooking the Worship Center below.', entrance:'Door H', color:'var(--orange)', x:86.1, y:69.9},
+  {id:13, num:7, name:'Olive Tree Café', floor:'main', desc:'Coffee & snacks.', entrance:'Door G', color:'var(--blue)', x:70.1, y:83.8},
+  {id:14, num:8, name:"Noah's Ark Nursery/Preschool", floor:'main', desc:'Nursery & preschool care, 6 weeks – 5 years.', entrance:'Door A', color:'var(--orange)', x:65.8, y:64.6},
+  {id:15, num:9, name:'Walking By Faith', floor:'main', desc:'Ministry meeting space.', entrance:'Door J', color:'var(--purple)', x:31.0, y:40.2}
 ];
 function roomById(id){ return rooms.find(r=>r.id===id); }
 
-/* ---------- FLOOR PLAN SVGs ---------- */
-const upperSVG = `
-<svg viewBox="0 -30 1000 730" class="floorplan" id="svg-upper">
-  <path d="M900,240 L935,120" class="corridor"/>
-  <path d="M620,230 L650,230" class="corridor"/>
-  <polygon class="room" data-id="7" points="900,60 962,38 992,92 950,122"/>
-  <circle class="pin" cx="935" cy="82" r="15"/><text class="pin-num" x="935" y="87">7</text>
-  <polygon class="door-tab" points="300,110 340,110 320,140"/><text class="door-label" x="320" y="100">Door E</text>
-  <polygon class="room" data-id="3" points="300,140 370,140 370,205 300,205"/>
-  <circle class="pin" cx="335" cy="172" r="15"/><text class="pin-num" x="335" y="177">3</text>
-  <polygon class="room" data-id="6" points="565,130 630,130 630,320 565,320"/>
-  <circle class="pin" cx="597" cy="225" r="15"/><text class="pin-num" x="597" y="230">6</text>
-  <polygon class="door-tab" points="640,215 640,255 670,235"/><text class="door-label" x="648" y="200">Door C</text>
-  <polygon class="room" data-id="8" points="655,160 855,160 855,340 655,340"/>
-  <circle class="pin" cx="755" cy="250" r="15"/><text class="pin-num" x="755" y="255">8</text>
-  <polygon class="room" data-id="9" points="860,160 905,160 905,320 860,320"/>
-  <circle class="pin" cx="882" cy="240" r="15"/><text class="pin-num" x="882" y="245">9</text>
-  <polygon class="room" data-id="1" points="120,340 165,235 285,195 385,240 425,340 385,445 285,485 165,445"/>
-  <circle class="pin" cx="270" cy="340" r="17"/><text class="pin-num" x="270" y="346">1</text>
-  <polygon class="room-sub" data-id="1" points="120,340 55,305 55,375"/>
-  <text class="door-label" x="30" y="345" text-anchor="start">Door G</text>
-  <polygon class="room" data-id="2" points="155,445 225,445 225,505 155,505"/>
-  <circle class="pin" cx="190" cy="475" r="15"/><text class="pin-num" x="190" y="480">2</text>
-  <polygon class="door-tab" points="245,510 285,510 265,540"/><text class="door-label" x="265" y="560">Door H</text>
-  <polygon class="room" data-id="4" points="425,300 485,270 545,300 545,380 485,412 425,380"/>
-  <circle class="pin" cx="485" cy="340" r="16"/><text class="pin-num" x="485" y="345">4</text>
-  <polygon class="room" data-id="5" points="425,385 485,415 505,470 445,500 400,460"/>
-  <circle class="pin" cx="460" cy="445" r="15"/><text class="pin-num" x="460" y="450">5</text>
-  <polygon class="door-tab" points="555,375 595,375 575,405"/><text class="door-label" x="575" y="360">Door J</text>
-  <polygon class="room" data-id="10" points="600,345 855,345 900,385 878,485 700,505 600,440"/>
-  <circle class="pin" cx="760" cy="420" r="16"/><text class="pin-num" x="760" y="425">10</text>
-  <polygon class="room" data-id="11" points="700,505 780,505 800,565 740,595 680,565"/>
-  <circle class="pin" cx="740" cy="545" r="15"/><text class="pin-num" x="740" y="550">11</text>
-  <path class="room" data-id="12" d="M905,345 L955,345 Q1000,345 1000,480 Q1000,620 955,620 L905,620 Z"/>
-  <circle class="pin" cx="945" cy="480" r="17"/><text class="pin-num" x="945" y="486">12</text>
-  <polygon class="room" data-id="13" points="850,600 925,600 925,665 850,665"/>
-  <circle class="pin" cx="887" cy="632" r="15"/><text class="pin-num" x="887" y="637">13</text>
-  <circle class="mk" cx="645" cy="252" r="9" style="fill:var(--orange)"/>
-  <circle class="mk" cx="400" cy="150" r="9" style="fill:var(--green)"/>
-  <circle class="mk" cx="885" cy="150" r="9" style="fill:var(--green)"/>
-  <circle class="mk" cx="900" cy="345" r="9" style="fill:var(--green)"/>
-  <circle class="mk" cx="955" cy="600" r="9" style="fill:var(--green)"/>
-  <circle class="mk" cx="335" cy="300" r="9" style="fill:var(--purple)"/>
-  <circle class="mk" cx="862" cy="590" r="9" style="fill:var(--purple)"/>
-</svg>`;
+document.getElementById('activity-legend').innerHTML = '';
+document.getElementById('category-legend').innerHTML = '';
+function buildFloorLegend(f){
+  const list = rooms.filter(r=>r.floor===f);
+  document.getElementById('activity-legend').innerHTML = list.map(r=>
+    `<div class="row" data-id="${r.id}" style="cursor:pointer;" onclick="selectRoom(${r.id})"><span class="legend-num" style="background:${r.color};">${r.num}</span>${r.name}</div>`).join('');
+}
+function buildMapPins(f){
+  const list = rooms.filter(r=>r.floor===f);
+  return list.map(r=>
+    `<button class="img-pin" data-id="${r.id}" style="left:${r.x}%;top:${r.y}%;background:${r.color};" onclick="selectRoom(${r.id})">${r.num}</button>`).join('');
+}
 
-const mainSVG = `
-<svg viewBox="0 0 1000 620" class="floorplan" id="svg-main">
-  <polygon class="door-tab" points="130,45 170,45 150,75"/><text class="door-label" x="150" y="35">Door N</text>
-  <polygon class="room" data-id="14" points="80,80 225,60 265,145 225,225 100,225 60,150"/>
-  <circle class="pin" cx="160" cy="145" r="16"/><text class="pin-num" x="160" y="150">14</text>
-  <polygon class="room" data-id="15" points="100,225 225,225 225,305 145,305 100,275"/>
-  <circle class="pin" cx="165" cy="265" r="15"/><text class="pin-num" x="165" y="270">15</text>
-  <circle class="mk" cx="260" cy="295" r="9" style="fill:var(--orange)"/>
-  <polygon class="room" data-id="16" points="80,305 225,305 245,425 80,425"/>
-  <circle class="pin" cx="155" cy="365" r="15"/><text class="pin-num" x="155" y="370">16</text>
-  <polygon class="room" data-id="17" points="265,285 365,285 365,425 265,425"/>
-  <circle class="pin" cx="315" cy="355" r="15"/><text class="pin-num" x="315" y="360">17</text>
-  <polygon class="room" data-id="18" points="390,280 430,180 560,140 670,190 705,280 670,380 560,420 430,380"/>
-  <circle class="pin" cx="545" cy="280" r="18"/><text class="pin-num" x="545" y="286">18</text>
-  <polygon class="room" data-id="19" points="705,340 785,340 805,420 745,460 685,420"/>
-  <circle class="pin" cx="745" cy="400" r="15"/><text class="pin-num" x="745" y="405">19</text>
-  <polygon class="room" data-id="20" points="785,300 855,280 885,340 855,400 805,400"/>
-  <circle class="pin" cx="830" cy="340" r="15"/><text class="pin-num" x="830" y="345">20</text>
-  <polygon class="door-tab" points="740,465 780,465 760,495"/><text class="door-label" x="760" y="515">Door K</text>
-  <circle class="mk" cx="95" cy="55" r="9" style="fill:var(--green)"/>
-  <circle class="mk" cx="700" cy="330" r="9" style="fill:var(--green)"/>
-  <circle class="mk" cx="395" cy="300" r="9" style="fill:var(--purple)"/>
-  <circle class="mk" cx="625" cy="400" r="9" style="fill:var(--purple)"/>
-</svg>`;
-
-document.getElementById('floor-upper-wrap').innerHTML = upperSVG;
-document.getElementById('floor-main-wrap').innerHTML = mainSVG;
+document.getElementById('floor-upper-wrap').innerHTML =
+  `<div class="map-img-wrap"><img class="map-img" src="map-main-level.png" alt="Main Level campus map">${buildMapPins('upper')}</div>`;
+document.getElementById('floor-main-wrap').innerHTML =
+  `<div class="map-img-wrap"><img class="map-img" src="map-level1.png" alt="Level 1 campus map">${buildMapPins('main')}</div>`;
+buildFloorLegend('upper');
 
 let currentFloor='upper';
 let selectedRoom=1;
@@ -949,15 +972,20 @@ function setFloor(f){
   document.querySelectorAll('.floor-btn').forEach(b=>b.classList.toggle('active', b.dataset.floor===f));
   document.getElementById('floor-upper-wrap').style.display = f==='upper' ? '' : 'none';
   document.getElementById('floor-main-wrap').style.display = f==='main' ? '' : 'none';
+  buildFloorLegend(f);
   const firstRoom = rooms.find(r=>r.floor===f);
   selectRoom(firstRoom.id);
 }
 function selectRoom(id){
   selectedRoom=id;
-  document.querySelectorAll('.room,.room-sub').forEach(el=>{
+  document.querySelectorAll('.img-pin').forEach(el=>{
     el.classList.toggle('selected', parseInt(el.dataset.id)===id);
   });
+  document.querySelectorAll('.legend-list .row').forEach(el=>{
+    el.classList.toggle('active', parseInt(el.dataset.id)===id);
+  });
   const r = roomById(id);
+  const isWorshipCenter = r.name.includes('Worship Center');
   document.getElementById('room-detail-slot').innerHTML = `
     <div class="room-detail">
       <div class="rd-head"><div class="rd-num">${r.id}</div><h3>${r.name}</h3></div>
@@ -967,6 +995,7 @@ function selectRoom(id){
       <div class="directions-drop" id="directions-drop">
         <div class="directions-drop-inner">${ic('pin')}<p id="directions-text"></p></div>
       </div>
+      ${isWorshipCenter?`<button class="btn-secondary" style="margin-top:10px;" onclick="window.open('seating.html','_blank')">View Seating Chart ${ic('external')}</button>`:''}
     </div>`;
 }
 function showDirections(id){
@@ -1050,6 +1079,8 @@ function pinSvgSmall(){ return `<svg class="i" style="width:11px;height:11px;" v
 function openMinistry(day, idx){
   const m = ministries[day][idx];
   document.getElementById('md-title').textContent = m.title;
+  const isNursery = m.icon === 'baby';
+  const isWorshipCenter = m.loc.includes('Worship Center');
   document.getElementById('md-body').innerHTML = `
     <div class="detail-hero">
       <div class="detail-circle" style="background:${m.bg};color:${m.color};">${ic(m.icon)}</div>
@@ -1064,8 +1095,42 @@ function openMinistry(day, idx){
       <div class="directions-drop" id="md-directions-drop">
         <div class="directions-drop-inner">${ic('pin')}<p id="md-directions-text"></p></div>
       </div>
+      ${isWorshipCenter?`<button class="btn-secondary" style="margin-top:10px;" onclick="window.open('seating.html','_blank')">View Seating Chart ${ic('external')}</button>`:''}
+      ${isNursery?`
+      <button class="btn-secondary" id="md-nursery-btn" onclick="toggleMdNursery()" style="margin-top:10px;">Find Your Child's Room <span class="btn-chev" id="md-nursery-chev">${ic('chevron-down')}</span></button>
+      <div class="directions-drop" id="md-nursery-drop">
+        <div style="padding:12px 4px 4px;">
+          <div class="pill-toggle" id="md-nursery-toggle" style="margin:0 0 6px;"></div>
+          <div class="animal-grid" id="md-nursery-grid" style="padding:6px 0 4px;"></div>
+        </div>
+      </div>`:''}
     </div>`;
   go('mdetail');
+}
+let mdNurseryLevel='lower';
+function toggleMdNursery(){
+  const drop = document.getElementById('md-nursery-drop');
+  const btn = document.getElementById('md-nursery-btn');
+  const chev = document.getElementById('md-nursery-chev');
+  const isOpen = drop.classList.contains('open');
+  if(isOpen){
+    drop.classList.remove('open'); btn.classList.remove('is-open'); chev.classList.remove('open');
+  } else {
+    buildMdNurseryToggle();
+    renderMdNursery();
+    drop.classList.add('open'); btn.classList.add('is-open'); chev.classList.add('open');
+  }
+}
+function buildMdNurseryToggle(){
+  document.getElementById('md-nursery-toggle').innerHTML = `
+    <button class="${mdNurseryLevel==='lower'?'active':''}" onclick="setMdNurseryLevel('lower')">LOWER LEVEL</button>
+    <button class="${mdNurseryLevel==='upper'?'active':''}" onclick="setMdNurseryLevel('upper')">UPPER LEVEL</button>`;
+}
+function setMdNurseryLevel(l){ mdNurseryLevel=l; buildMdNurseryToggle(); renderMdNursery(); }
+function renderMdNursery(){
+  const list = mdNurseryLevel==='lower'?nurseryLower:nurseryUpper;
+  document.getElementById('md-nursery-grid').innerHTML = list.map(([name,emoji])=>`
+    <div class="animal-card"><span class="animal-emoji">${emoji}</span><span class="name">${name}</span></div>`).join('');
 }
 function toggleMdDirections(entrance, loc){
   const drop = document.getElementById('md-directions-drop');
@@ -1093,15 +1158,33 @@ const guideSections = [
   {icon:'people',color:'var(--purple)',bg:'var(--purple-bg)',title:'First-Time Visitors',
     items:['Bring first-time guests to the closest welcome desk','Introduce them to a Next Steps coach to begin the guest process']}
 ];
-document.getElementById('guide-body').innerHTML = guideSections.map(s=>`
+document.getElementById('guide-body').innerHTML = guideSections.map((s,si)=>`
   <div class="info-card">
     <div class="ic-head">${badgeIcon(s.icon,s.color,s.bg,34)}<h4>${s.title}</h4></div>
-    <ul>${s.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+    ${s.items.map((i,ii)=>`
+      <div class="check-row" id="check-${si}-${ii}" onclick="toggleCheck(${si},${ii})">
+        <div class="check-box"></div>
+        <div class="check-label">${i}</div>
+      </div>`).join('')}
   </div>`).join('') + `
+  <div style="text-align:center;padding:4px 16px 6px;">
+    <button class="reset-checks-btn" onclick="resetChecks()">Reset checklist</button>
+  </div>
   <div class="mission-banner" style="margin:16px;">
     <div class="m-title">MISSION</div>
-    <div class="m-body">EVERYONE ENCOUNTERED.<br>EVERYONE EMBRACED.</div>
+    <div class="m-body">Everyone Encountered.<br>Everyone Embraced.</div>
   </div>`;
+function toggleCheck(si,ii){
+  const row = document.getElementById(`check-${si}-${ii}`);
+  row.classList.toggle('checked');
+  row.querySelector('.check-box').classList.toggle('checked');
+}
+function resetChecks(){
+  document.querySelectorAll('#guide-body .check-row').forEach(r=>{
+    r.classList.remove('checked');
+    r.querySelector('.check-box').classList.remove('checked');
+  });
+}
 
 /* ---------- EMERGENCY ---------- */
 document.getElementById('emergency-body').innerHTML = `
@@ -1116,7 +1199,11 @@ document.getElementById('emergency-body').innerHTML = `
   </div>
   <div class="info-card">
     <div class="ic-head">${badgeIcon('people','var(--purple)','var(--purple-bg)',34)}<h4>Pastoral Care</h4></div>
-    <p style="font-size:12.5px;color:var(--text);margin:0;">Ministry appointments, hospital visitation & funeral information — refer to Pastors Matt Yonker, Nick Mayo, or Pat Tibbitts.<br><br>Direct: 616.524.9121 · Church: 616.534.4923</p>
+    <p style="font-size:12.5px;color:var(--text);margin:0;">Ministry appointments, hospital visitation & funeral information — refer to Pastors Matt Yonker, Nick Mayo, or Pat Binish.<br><br>Direct: 616.524.9121 · Church: 616.534.4923</p>
+  </div>
+  <div class="info-card">
+    <div class="ic-head">${badgeIcon('people','var(--purple)','var(--purple-bg)',34)}<h4>Deacon On Call</h4></div>
+    <p style="font-size:12.5px;color:var(--text);margin:0;">Pastor Ricky Luong — (616) 334-5596</p>
   </div>
   <div class="info-card">
     <div class="ic-head">${badgeIcon('bag','var(--orange)','var(--orange-bg)',34)}<h4>Lost & Found</h4></div>
@@ -1155,7 +1242,11 @@ document.getElementById('contacts-body').innerHTML = `
   </div>
   <div class="info-card">
     <div class="ic-head">${badgeIcon('people','var(--purple)','var(--purple-bg)',34)}<h4>Pastoral Care Office</h4></div>
-    <p style="font-size:12.5px;margin:0;">Direct: 616.524.9121<br>Church: 616.534.4923<br>Refer to Pastors Matt Yonker, Nick Mayo, or Pat Tibbitts.</p>
+    <p style="font-size:12.5px;margin:0;">Direct: 616.524.9121<br>Church: 616.534.4923<br>Refer to Pastors Matt Yonker, Nick Mayo, or Pat Binish.</p>
+  </div>
+  <div class="info-card">
+    <div class="ic-head">${badgeIcon('people','var(--purple)','var(--purple-bg)',34)}<h4>Deacon On Call</h4></div>
+    <p style="font-size:12.5px;margin:0;">Pastor Ricky Luong — (616) 334-5596</p>
   </div>
   <div class="info-card">
     <div class="ic-head">${badgeIcon('bag','var(--orange)','var(--orange-bg)',34)}<h4>Lost & Found / Front Office</h4></div>
@@ -1225,7 +1316,10 @@ const chatRules = [
   {kw:['growth track'], a:"Growth Track meets in the Chapel at every service — enter through Door K."},
   {kw:['coffee'], a:"Free coffee is in the Community Room (Sunday AM), the Ground Floor Lobby (Sunday PM), or the Res Center Lobby (Wednesday)."},
   {kw:['first time','first-time','visitor','guest'], a:"Bring first-time guests to the closest welcome desk and introduce them to a Next Steps coach to begin the guest process."},
-  {kw:['pastoral','pastor','care'], a:"For pastoral care, refer to Pastors Matt Yonker, Nick Mayo, or Pat Tibbitts. Direct: 616.524.9121 · Church: 616.534.4923."},
+  {kw:['pastoral','pastor','care'], a:"For pastoral care, refer to Pastors Matt Yonker, Nick Mayo, or Pat Binish. Direct: 616.524.9121 · Church: 616.534.4923."},
+  {kw:['nurse'], a:"For a nurse, contact Security — ask a team lead or the Welcome Desk for the current number."},
+  {kw:['deacon'], a:"Contact Pastor Ricky at (616) 334-5596."},
+  {kw:['hispanic','spanish'], a:"The Hispanic Service is held at Iglesia Vida (ResCenter)."},
   {kw:['lost'], a:"Sunday AM: direct to Door K and let the Safety Team know. Monday–Thursday 8:30am–4pm: Front Office (Door G) or call 616.534.4923."},
   {kw:['emergency'], a:"If a pastor is needed right away, call 616.534.4923, option 2, and leave a message. Our on-duty pastor will get back to you shortly."},
   {kw:['restroom','bathroom'], a:"Restrooms are marked with a green dot on the Campus Map — check the Map tab for the one nearest you."},
