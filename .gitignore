@@ -1,3 +1,2 @@
-# Browser "Save as" duplicates, e.g. "index (7).html", "seating (1).html"
-index (*).html
-seating (*).html
+# Browser "Save as" duplicates, e.g. "index (7).html", "map-level1 (1).html"
+* (*).html
