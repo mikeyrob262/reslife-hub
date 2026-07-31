@@ -875,7 +875,11 @@ function render(){
     if(nav) nav.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===top));
   });
   if(top!=='splash'){
-    try{ history.replaceState(history.state, '', '#'+top); }catch(e){}
+    let hashScreen = top;
+    if(top==='map' && typeof currentFloor!=='undefined'){
+      hashScreen = currentFloor==='upper' ? 'map-mainlevel' : 'map-level1';
+    }
+    try{ history.replaceState(history.state, '', '#'+hashScreen); }catch(e){}
   }
 }
 function pushHistory(){
